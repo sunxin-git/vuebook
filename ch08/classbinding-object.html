@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>class绑定</title>
+		<style>
+			.static {
+				border: solid 2px black;
+			}
+			.active {
+				width: 100px;
+				height: 100px;
+				background: green;
+			}
+			.text-danger {
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id = "app">
+		   <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		      isActive: true,
+		      hasError: true
+		    }
+		  });
+		</script>
+	</body>
+</html>

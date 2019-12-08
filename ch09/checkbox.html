@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id = "app">
+			<h3>单个复选框：</h3>
+			<input id="agreement" type="checkbox" v-model="isAgree">
+			<label for="agreement">{{ isAgree }}</label>
+			
+			<h3>多个复选框：</h3>
+			<input id="basketball" type="checkbox" value="篮球" v-model="interests">
+		  <label for="basketball">篮球</label>
+		  <input id="football" type="checkbox" value="足球" v-model="interests">
+		  <label for="football">足球</label>
+		  <input id="volleyball" type="checkbox"  value="排球" v-model="interests">
+		  <label for="volleyball">排球</label>
+		  <input id="swim" type="checkbox"  value="游泳" v-model="interests">
+		  <label for="swim">游泳</label>
+		  
+		  <p>你的兴趣爱好是: {{ interests }}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		      isAgree: false,
+		      interests: []
+		    }
+		  });
+		</script>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id = "app">
+			<select v-model="searches">
+				<option v-for="option in options" v-bind:value="option.value">
+					{{ option.text }}
+				</option>
+			</select>
+			<p>您选择的搜索引擎是：{{ searches }}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		     	education: '',
+		     	searches: [],
+		     	options: [
+		     		{text: '百度', value: 'baidu.com'},
+		     		{text: '谷歌', value: 'google.com'},
+		     		{text: '必应', value: 'bing.com'}
+		     	]
+		    }
+		  });
+		</script>
+	</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				width: 600px;
+			}
+			table {
+			    border: 1px solid black;
+			}
+			table {
+			    width: 100%;
+			}
+			th {
+			    height: 50px;
+			}
+			th, td {
+			    border-bottom: 1px solid #ddd;
+			    text-align: center;
+			}
+			
+			[v-cloak] {
+				display: none;
+			}
+			.even {
+				background-color: #cdcdcd;
+			}
+		</style>
+	</head>
+	<body>
+		<div id = "app" v-cloak>
+		   <table>
+		    <tr>
+		        <th>序号</th>
+		        <th>书名</th>
+		        <th>作者</th>
+		        <th>价格</th>
+		        <th>操作</th>
+		    </tr>
+		    <tr v-for="(book, index) in books" 
+		    	:key="book.id" :class="{even : (index+1) % 2 === 0}">
+		        <td>{{ book.id }}</td>
+		        <td>{{ book.title }}</td>
+		        <td>{{ book.price }}</td>
+		        <td>{{ book.author }}</td>
+		        <td>
+		        	<button @click="deleteItem(index)">删除</button>
+		        </td>
+		    </tr>
+	    </table>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		      books: [
+			    	{
+				      id: 1,
+				      title: 'Vue.js无难事',
+				      author: '孙鑫',
+				      price: 98
+				    },
+	          {
+	            id: 2,
+	            title: 'VC++深入详解',
+	            author: '孙鑫',
+	            price: 168
+	          },
+	          {
+	            id: 3,
+	            title: 'Servlet/JSP深入详解',
+	            author: '孙鑫',
+	            price: 139
+	          },
+	          {
+	            id: 4,
+	            title: 'Java Web开发详解',
+	            author: '孙鑫',
+	            price: 99
+	          }
+	        ]
+		    },
+		    methods: {
+		    	deleteItem(index){
+			  		this.books.splice(index, 1);
+			  	}
+		    }
+		  });
+		</script>
+	</body>
+</html>

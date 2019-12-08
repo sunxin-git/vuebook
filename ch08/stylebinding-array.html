@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>style绑定</title>
+	</head>
+	<body>
+		<div id = "app">
+		   <div v-bind:style="[baseStyles, moreStyles]"></div>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		      baseStyles: {
+		      	border: 'solid 2px black'
+		      },
+					moreStyles: {
+						width: '100px',
+						height: '100px',
+						background: 'orange'
+					}
+		    }
+		  });
+		</script>
+	</body>
+</html>

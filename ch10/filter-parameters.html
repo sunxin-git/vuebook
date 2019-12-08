@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id = "app">
+			<p>{{filename | format('vue', suffix)}}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			Vue.filter('format', function (value, prefix, suffix) {
+			  if (!value) return '';
+			  value = value.toString();
+			  return prefix + "-" + value + "." + suffix;
+			})
+			
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		    	filename: 'filters',
+		    	suffix: 'js'
+		    }
+		  });
+		</script>
+	</body>
+</html>
