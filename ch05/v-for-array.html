@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<!--
+				<li v-for="book in books">{{book.title}}</li>
+				-->
+				<li v-for="(book,index) in books">{{index}} - {{book.title}}</li>
+			</ul>
+			<div>
+  			<span v-for="n in 10">{{ n }} </span>
+			</div>
+
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					books: [
+						{title: 'Vue无难事'},
+						{title: 'VC++深入详解'},
+						{title: 'Servlet/JSP深入详解'}
+					]
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+	</head>
+	<body>
+		<div id="app">
+		  <p>原始字符串: {{ message }}</p>
+		  <p>方法调用后的反转字符串: {{ reversedMessage() }}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+			  el: '#app',
+			  data: {
+			    message: 'Hello，Vue.js无难事!'
+			  },
+			  methods: {
+			    reversedMessage: function () {
+			      return this.message.split('').reverse().join('')
+			    }
+			  }
+			})
+		</script>
+	</body>
+</html>

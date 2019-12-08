@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 绑定一个属性 -->
+			<img v-bind:src="imgSrc">
+			
+			<!-- 缩写 -->
+			<img :src="imgSrc">
+			
+			<!-- 动态属性名 (2.6.0+) -->
+			<a v-bind:[attrname]="url">链接</a>
+			
+			<!-- 内联字符串拼接 -->
+			<img :src="'images/' + fileName">
+			
+			<!-- 绑定一个有属性的对象 -->
+			<form v-bind="formObj">
+				<input type="text">
+			</form>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					attrname: 'href',
+					url: 'https://www.phei.com.cn/',
+					imgSrc: 'images/bg.jpg',
+					fileName: 'bg.jpg',
+					formObj: {
+						method: 'get',
+						action: '#'
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

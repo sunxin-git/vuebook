@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<p>
+				<!--（1）click事件直接使用JavaScript语句-->
+				<button v-on:click="count += 1">Add 1</button>
+				<span>count: {{count}}</span>
+			</p>
+			<p>
+				<!--（2）click事件直接绑定一个方法-->
+				<button v-on:click="greet">Greet</button>
+				<!--缩写语法-->
+				<button @click="greet">Greet</button>
+			</p>
+			<p>
+				<!--（3）click事件使用内联语句调用方法-->
+				<button v-on:click.once="say('Hi')">Hi</button>
+			</p>
+			<a href="/login" v-on:click.prevent="login">登录</a>
+		</div>
+
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					count: 0,
+					message: 'Hello, Vue.js!'
+				},
+				// 在选项对象的methods属性对象中定义方法
+				methods: {
+					greet: function() {
+						// 方法内this指向vm
+						alert(this.message)
+					},
+					// 对象方法的简写语法
+					say(msg) {
+						alert(msg)
+					},
+					login(event){
+						// ...
+						
+						//event.preventDefault();
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

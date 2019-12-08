@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>v-for与计算属性</title>
+	</head>
+	<body>
+		<div id="app">
+		  <h1>已完成的工作计划</h1>
+			<ul>
+				<li v-for="plan in completedPlans">
+					{{plan.content}}
+				</li>
+			</ul>
+			<h1>未完成的工作计划</h1>
+			<ul>
+				<li v-for="plan in incompletePlans">
+					{{plan.content}}
+				</li>
+			</ul>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+			  el: '#app',
+			  data: {
+					plans: [
+						{content: '写《Vue.js无难事》', isComplete: false},
+						{content: '买菜', isComplete: true},
+						{content: '写PPT', isComplete: false},
+						{content: '做饭', isComplete: true},
+						{content: '打羽毛球', isComplete: false}
+					]
+				},
+			  computed: {
+			  	// 计算属性的 getter
+			    completedPlans: function () {
+			      return this.plans.filter(plan => plan.isComplete);
+			    },
+			    incompletePlans: function(){
+			    	return this.plans.filter(plan => !plan.isComplete);
+			    }
+			  }
+			})
+		</script>
+	</body>
+</html>

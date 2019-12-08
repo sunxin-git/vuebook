@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+	</head>
+	<body>
+		<div id="app">
+		  <p>原始字符串: {{ message }}</p>
+		  <p>计算后的反转字符串: {{ reversedMessage }}</p>
+		  <p>方法调用后的反转字符串: {{ reversedMessage2() }}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+			  el: '#app',
+			  data: {
+			    message: 'Hello，Vue.js无难事!'
+			  },
+			  computed: {
+			  	// 计算属性的 getter
+			    reversedMessage: function () {
+			    	alert("计算属性");
+			      return this.message.split('').reverse().join('')
+			    }
+			  },
+			  methods: {
+			    reversedMessage2: function () {
+			    	alert("方法");
+			      return this.message.split('').reverse().join('')
+			    }
+			  }
+			})
+			let msg = vm.reversedMessage;
+			msg = vm.reversedMessage2();
+		</script>
+	</body>
+</html>

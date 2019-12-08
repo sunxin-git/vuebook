@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+	</head>
+	<body>
+		<div id="app">
+		  <p>显示的时间是: {{ now }}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+			  el: '#app',
+			  computed: {
+				  now: function () {
+				    return Date.now();
+				  }
+				}
+			})
+		</script>
+	</body>
+</html>

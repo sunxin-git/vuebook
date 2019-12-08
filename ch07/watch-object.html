@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>监听器</title>
+	</head>
+	<body>
+		<div id = "app">
+		   年龄: <input type = "text" v-model="person.age">
+		   <p v-if="info">{{info}}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		      person: {
+		      	name: 'lisi',
+		      	age: 0
+		      },
+		      info: ''
+		    },
+		    watch : {
+		    	// 该回调会在person对象的属性改变时被调用，无论该属性被嵌套多深
+		    	person: {
+		    		handler: function(val, oldVal){
+			    		if(val.age >= 18)
+			    			this.info = '已成年';
+			    		else
+			    			this.info = '未成年';
+		    		},
+		    		deep: true,
+		    		immediate: true
+		    	}
+		    }
+		  });
+		</script>
+	</body>
+</html>

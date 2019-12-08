@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>监听器</title>
+	</head>
+	<body>
+		<div id = "app">
+		   年龄: <input type = "text" v-model="age">
+		   <p v-if="info">{{info}}</p>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+		    el: '#app',
+		    data: {
+		      age: 0,
+		      info: ''
+		    },
+		    methods: {
+		    	checkAge(){
+		    		if(this.age >= 18)
+		    			this.info = '已成年';
+		    		else
+		    			this.info = '未成年';
+		    		
+		    	}
+		    },
+		    watch : {
+		    	age: 'checkAge'
+		    }
+		  });
+		</script>
+	</body>
+</html>

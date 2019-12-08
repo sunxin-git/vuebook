@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input v-focus>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			// 注册一个全局自定义指令
+			Vue.directive('focus', {
+			  // 当绑定元素插入到父节点时。
+			  inserted: function (el) {
+			    // 聚焦元素
+			    el.focus()
+			  }
+			})
+			
+			new Vue({
+				el: '#app'
+			})
+		</script>
+	</body>
+</html>

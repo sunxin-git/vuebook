@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="gbk">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<div v-html="hElt"></div>
+		</div>
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					hElt: "<h1>《Vue.js无难事》</h1>"
+				}
+			})
+		</script>
+	</body>
+</html>
