@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script type = "text/javascript">
+			// 定义一个混入对象
+			var myMixin = {
+			  data: function () {
+			    return {
+			    	// 混入对象的数据属性
+			    	title: 'VC++深入详解',
+			      message: '很好，很强大'
+			    }
+			  },
+			  created(){
+			  	document.write('混入对象的钩子被调用<br>')
+			  }
+			}
+			// 定义一个组件，使用这个混入对象
+			var Component = Vue.extend({
+				mixins: [myMixin],
+				data(){
+					return {
+						// 组件的数据属性
+						title: 'Vue.js无难事'
+					}
+				},
+				created(){
+					document.write('组件钩子被调用<br>')
+				},
+				template: `
+					<div>
+						<h3>{{title}}</h3>
+						<p>{{message}}</p>
+					</div>
+					`,
+			})
+			
+			new Vue({
+			  el: '#app',
+			  components: {
+			  	MyComponent: Component
+			  }
+			})
+		</script>
+	</body>
+</html>

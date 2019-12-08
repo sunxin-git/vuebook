@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-input v-model="message"></my-input>
+		</div>
+	
+		<script>
+			Vue.component('MyInput', {
+				data: function(){
+					return {
+						inpuStyles: {
+							'background-color': '#cdcdcd',
+							opacity: 0.5
+						},
+					}
+				},
+				props: ['value'],
+	      template: `<div>
+	      		<input :value="value" :style="inpuStyles">
+	      		<label>{{ value }}</label>
+	      	</div>`  		
+  		});
+  		
+			var vm = new Vue({
+			  el: '#app',
+			  data: {
+			  	message: 'Vue.js无难事'
+			  }
+			})
+		</script>
+	</body>
+</html>

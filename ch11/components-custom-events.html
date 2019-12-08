@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<child v-on:greet="this.alert('Hello, ' + $event)"></child>
+		</div>
+	
+		<script>
+			Vue.component('child', {
+				data: function(){
+					return {
+						name: '张三'
+					}
+				},
+				methods: {
+					handleClick(){
+						this.$emit('greet', this.name);
+					}
+				},
+	      template: '<button v-on:click="handleClick">开始欢迎</button>'
+    		}
+  		);
+  		
+  
+			new Vue({
+			  el: '#app',
+			  methods: {
+			  	// 自定义事件的附加参数会自动传入方法
+			  	sayHello(name){
+			  		alert("Hello, " + name);
+			  	}
+			  }
+			})
+		</script>
+	</body>
+</html>

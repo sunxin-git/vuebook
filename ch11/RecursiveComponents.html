@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<category-component :list="categories"></category-component>
+		</div>
+	
+		<script>
+			
+			new Vue({
+			  el: '#app',
+			  data: {
+			  	categories: [
+			  		{
+			  			name: '程序设计', 
+			  			children: [
+			  				{
+			  					name: 'Java', 
+			  					children: [
+			  						{name: 'Java SE'}, 
+			  						{name: 'Java EE'}
+			  					]
+			  				}, 
+			  				{
+			  					name: 'C++'
+			  				}
+			  			]
+			  		},
+	  				{
+	  					name: '前端框架', 
+	  					children: [
+	  						{name: 'Vue.js'}, 
+	  						{name: 'React'}
+	  					]
+	  				}
+			  	]
+			  },
+			  components: {
+			  	CategoryComponent : {
+			  		name: 'catComp',
+			  		props: {
+			  			list: {
+			  				type: Array
+			  			}
+			  		},
+				  	data: function(){
+							return {
+								count: 0
+							}
+						},
+			  		template: `
+			  			<ul>
+			  				<!-- 如果list为空，表示没有子分类了，结束递归 -->
+			  				<template v-if="list">
+									<li v-for="cat in list">
+										{{cat.name}}
+										<catComp :list="cat.children"/>
+									</li>
+								</template>
+			  			</ul>`
+			  	}
+			  }
+			})
+		</script>
+	</body>
+</html>

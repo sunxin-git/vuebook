@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script type = "text/javascript">
+			// 为自定义的选项 myOption 注入一个处理器。
+			Vue.mixin({
+			  created: function () {
+			    var myOption = this.$options.myOption
+			    if (myOption) {
+			      document.write(myOption);
+			    }
+			    else
+			    	document.write('你怎么没有使用自定义选项？<br>')
+		  	}
+			})
+			// 定义一个组件，使用自定义选项myOption
+			var Component = Vue.extend({
+				myOption: 'Hello, Vue.js',
+				template: '<p>Vue.js无难事</p>'
+			})
+			
+			// 根实例没有使用自定义选项myOption
+			new Vue({
+			  el: '#app',
+			  components: {
+			  	MyComponent: Component
+			  }
+			})
+		</script>
+	</body>
+</html>

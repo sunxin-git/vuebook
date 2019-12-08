@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<parent></parent>
+		</div>
+	
+		<script>
+			Vue.component('parent', {
+			  mounted(){
+			  	// 访问子元素<input>，让其具有焦点
+			  	this.$refs.inputElement.focus();
+			  	// 访问子组件<child>的message数据属性
+			  	console.log(this.$refs.childComponent.message)
+			  },
+				template: `
+					<div>
+						<input ref="inputElement"><br> <!--子元素-->
+						<child ref="childComponent"></child> <!-- 子组件-->
+					</div>`
+			});
+			Vue.component('child', {
+			 	data(){
+			 		return {
+			 			message: 'Vue.js无难事'
+			 		}
+			 	},
+				template: '<p>{{message}}</p>'
+			})
+
+			new Vue({
+			  el: '#app',
+			  
+			})
+		</script>
+	</body>
+</html>

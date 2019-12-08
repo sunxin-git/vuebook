@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动态组件</title>
+		<style>
+			div {
+				width: 400px;
+			}
+			.tab-button {
+			  padding: 6px 10px;
+			  border-top-left-radius: 3px;
+			  border-top-right-radius: 3px;
+			  border: solid 1px  #ccc;
+			  cursor: pointer;
+			  background: #f0f0f0;
+			  margin-bottom: -1px;
+			  margin-right: -1px;
+			}
+			.tab-button:hover {
+			  background: #e0e0e0;
+			}
+			.tab-button.active {
+			  background: #cdcdcd;
+			}
+			.tab {
+			  border: solid 1px #ccc;
+			  padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button
+			  v-for="tab in tabs"
+			  :key="tab.title"
+			  :class="['tab-button', { active: currentTab === tab.title }]"
+			  @click="currentTab = tab.title">
+			  {{ tab.displayName }}
+			</button>
+			<keep-alive>
+				<component
+				  v-bind:is="currentTabComponent"
+				  class="tab">
+				</component>
+			</keep-alive>
+		</div>
+	  <script src="vue.js"></script>
+		<script>
+			Vue.component('tab-introduce', { 
+				data(){
+					return {
+						content: 'Vue.js无难事'
+					}
+				},
+				template: '<div><input v-model="content"></div>'
+			})
+			Vue.component('tab-comment', { 
+				template: '<div>这是一本好书</div>' 
+			})
+			Vue.component('tab-qa', { 
+				template: '<div>有人看过吗？怎么样？</div>' 
+			})
+
+			var vm = new Vue({
+			  el: '#app',
+			  data: {
+			    currentTab: 'introduce',
+			    tabs: [
+			    	{title: 'introduce', displayName: '图书介绍'}, 
+			    	{title: 'comment', displayName: '图书评价'},
+				   	{title: 'qa', displayName: '图书问答'}
+			    ]
+			  },
+			  computed: {
+			    currentTabComponent: function () {
+			      return 'tab-' + this.currentTab
+			    }
+			  }
+			})
+		</script>
+	</body>
+</html>

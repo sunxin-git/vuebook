@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<post-list></post-list>
+		</div>
+	
+		<script>
+			Vue.component('PostItem', {
+				// 声明props
+				props: ['postTitle'],
+				// postTitle就像data中定义的数据属性一样，
+				// 在该组件中可以像 "this.postTitle" 这样使用
+	      template: '<h3>{{ postTitle }}</h3>'
+  		});
+  		
+  		Vue.component('PostList', {
+  			data() {
+  				return {
+  					title: 'Vue.js无难事'
+  				}
+  			},
+  			// 在字符串模板中可以直接使用PascalCase命名的组件名
+  			// 和camelCase命名的prop名
+	      template: '<div><PostItem :postTitle="title"></PostItem></div>'
+  		});
+  		
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

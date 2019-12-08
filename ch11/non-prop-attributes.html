@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+		<style>
+			.child {
+				background-color: red;
+			}
+			
+			.parent {
+				opacity: 0.5;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<my-input type="checkbox" class="parent"></my-input>
+		</div>
+	
+		<script>
+			Vue.component('MyInput', {
+	      template: '<input class="child">'
+    		}
+  		);
+  		
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

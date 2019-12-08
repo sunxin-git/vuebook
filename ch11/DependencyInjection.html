@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<parent></parent>
+		</div>
+		
+		<script>
+			Vue.component('parent', {
+			  methods: {
+			  	sayHello(name){
+			  		console.log("Hello, " + name);
+			  	}
+			  },
+			  provide(){
+			  	return {
+			  		// 数据属性message和sayHello方法可供后代组件访问
+			  		message: 'Vue.js无难事',
+			  		hello : this.sayHello
+			  	}
+			  },
+				template: '<child/>'
+			});
+			Vue.component('child', {
+				// 接收message数据属性和hello方法
+			 	inject: ['message', 'hello'],
+			 	mounted(){
+			 		// 当自身的方法来访问
+			 		this.hello('zhangsan');
+			 	},
+			 	// 当自身的数据属性来访问
+				template: '<p>{{message}}</p>'
+			})
+
+			new Vue({
+			  el: '#app',
+			  
+			})
+		</script>
+	</body>
+</html>

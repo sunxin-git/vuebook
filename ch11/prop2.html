@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<post-list></post-list>
+		</div>
+	
+		<script>
+			Vue.component('PostItem', {
+				props: ['post'],
+	      template: `
+	      	<div>
+	      		<h3>{{ post.title }}</h3>
+	      		<p> 作者：{{ post.author }}</p>
+	      		<p>{{ post.content }}</p>
+	      	</div>`
+  		});
+  		
+  		Vue.component('PostList', {
+  			data() {
+  				return {
+  					post: {
+  						author: '孙鑫',
+  						title: 'Vue.js无难事',
+  						content: '这本书不错'
+  					}	
+  				}
+  			},
+	      template: '<div><PostItem :post="post"/></div>'
+  		});
+  		
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

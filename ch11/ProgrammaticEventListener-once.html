@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.7.0/pikaday.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		  <input 
+		    ref="dateInput"
+		    v-model="date"
+		    type="text"
+		  >
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: '#app',
+			  data: {
+			  	date: null
+			  },
+			  mounted: function () {
+			    var picker = new Pikaday({
+			      field: this.$refs.dateInput,
+			      format: 'YYYY-MM-DD'
+			    })
+
+			    this.$once('hook:beforeDestroy', function () {
+			      picker.destroy();
+			    })
+			  }
+			})
+		</script>
+	</body>
+</html>

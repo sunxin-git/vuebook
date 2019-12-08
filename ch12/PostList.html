@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<post-list></post-list>
+		</div>
+	
+		<script>
+			// 父组件
+			Vue.component('PostList', {
+  			data() {
+  				return {
+  					posts: [
+  						{id: 1, title: '《Servlet/JSP深入详解》怎么样', author: '张三', date: '2019-10-21 20:10:15', vote: 0},
+  						{id: 2, title: '《VC++深入详解》观后感', author: '李四', date: '2019-10-10 09:15:11', vote: 0},
+  						{id: 3, title: '《Vue.js无难事》怎么样', author: '王五', date: '2019-11-11 15:22:03', vote: 0}
+  					]
+  				}
+  			},
+  			methods: {
+  				// 自定义事件vote的事件处理器方法
+  				handleVote(id){
+  					this.posts.map(item => {
+  						item.id === id ? {...item, voite: ++item.vote} : item;
+  					})
+  				}
+  			},
+  			render: function(h){
+  				let postNodes = [];
+  				// this.posts.map取代v-for指令，循环遍历posts，
+  				// 构造子组件的虚拟节点
+  				this.posts.map(post => {
+  					let node = h('PostListItem', {
+								props: {
+									post: post
+								},
+								on: {
+									vote : () => this.handleVote(post.id)
+								}
+							});
+  					postNodes.push(node);
+  				})
+  				return h('div', [
+  						h('ul',	[
+  								postNodes
+  							]
+  						)
+  					]
+  				);
+  			},
+  		});
+  		
+  		// 子组件
+			Vue.component('PostListItem', {
+				props: {
+					post: Object,
+					default: () => {},
+					required: true
+				},
+				render: function(h){
+					return h('li', [
+							h('p', [
+									h('span',
+										// 这是<span>元素的内容
+										'标题：'+ this.post.title + ' | 发帖人：' + this.post.author + ' | 发帖时间：' + this.post.date + ' | 点赞数：' + this.post.vote
+									),
+									h('button', {
+											on: {
+												// 点击按钮，向父组件提交自定义事件vote
+												click: () => this.$emit('vote')
+											}
+										},
+										'赞'
+									)
+								]
+							)
+						]
+					);
+				}
+  		});
+  		
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

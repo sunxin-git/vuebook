@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<span>计数器的值：{{counter}}</span>
+			<!--
+			<child 
+				v-bind:val="counter" 
+				v-on:update:val="counter = $event">
+			</child>
+			-->
+			<child v-bind:val.sync="counter"></child>
+				
+		</div>
+	
+		<script>
+			Vue.component('child', {
+				data: function(){
+					return {
+						count: this.val
+					}
+				},
+				props: {
+					val: {
+						type: Number,
+						default: 0
+					}
+				},
+				methods: {
+					handleClick(){
+						this.$emit('update:val', ++this.count);
+					}
+				},
+	      template: 
+	      	`<div>
+	      		<span>计数：{{val}}</span>
+	      		<button @click="handleClick">增加计数</button>
+	      	</div>`
+  		});
+  
+			new Vue({
+			  el: '#app',
+			  data: {
+			  	counter: 0
+			  }
+			})
+		</script>
+	</body>
+</html>

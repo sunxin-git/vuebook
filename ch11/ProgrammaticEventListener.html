@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<child></child>
+		</div>
+	
+		<script>
+			Vue.component('child', {
+				created(){
+					// 监听当前实例的greet事件
+			 		this.$on("greet", function(){
+			 			this.$parent.sayHello();
+			 		})
+			 	},
+			 	beforeDestroy(){
+			 		// 删除greet事件的所有监听器
+			 		this.$off("greet");
+			 	},
+			 	methods: {
+					handleClick(){
+						// 触发自定义事件greet
+						this.$emit('greet');
+					}
+				},
+				template: '<button @click="handleClick">手动监听事件</button>'
+			})
+
+			var vm = new Vue({
+			  el: '#app',
+			  methods: {
+			  	sayHello(){
+			  		alert("Hello, Vue.js");
+			  	}
+			  }
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button-counter></button-counter>
+		</div>
+	
+		<script>
+			Vue.component('ButtonCounter', {
+				data: function(){
+					return {
+						count: 0
+					}
+				},
+	      template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+  		});
+  		/*let MyComponent = Vue.extend({
+  			template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>',
+  			data: function(){
+					return {
+						count: 0
+					}
+				}			
+  		});
+  		
+  		Vue.component('ButtonCounter', MyComponent);*/
+  
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

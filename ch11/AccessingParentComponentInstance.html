@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<parent></parent>
+		</div>
+	
+		<script>
+			Vue.component('parent', {
+				data(){
+					return {
+						price: 98
+					}
+			  },
+			  computed: {
+			  	totalPrice(){
+			  		return this.price * 10;
+			  	}
+			  },
+			  methods: {
+			  	hello(){
+			  		return "Hello, Vue.js无难事";
+			  	}
+			  },
+				template: '<child></child>',
+			});
+			Vue.component('child', {
+			 	
+				template: '<input @click="accessParent">访问父组件实例</button>'
+			})
+
+			new Vue({
+			  el: '#app',
+			  
+			})
+		</script>
+	</body>
+</html>

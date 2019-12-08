@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!--
+			<my-button>
+				<template v-slot:default="slotProps">
+					{{slotProps.values.register}}
+				</template>
+			</my-button>
+			-->
+			<!--
+			<my-button v-slot:default="slotProps">
+				{{slotProps.values.register}}
+			</my-button>
+			-->
+			<!--
+			<my-button v-slot="{values}">
+				{{values.register}}
+			</my-button>
+			-->
+			<my-button v-slot="{values:titles}">
+				{{titles.register}}
+			</my-button>
+		
+			
+		</div>
+	
+		<script>
+			Vue.component('my-button', {
+				data(){
+					return {
+						titles: {
+							login: '登录',
+							register: '注册'
+						}
+					}
+				},
+	      template: `
+	      	<button>
+	      		<slot v-bind:values = "titles">
+	      			{{ titles.login }}
+	      		</slot>
+	      	</button>`
+    		
+  		});
+  
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

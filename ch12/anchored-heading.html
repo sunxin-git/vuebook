@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<anchored-heading :level="3">
+				<a name="hello-world" href="#hello-world">
+    			Hello world!
+  			</a>
+			</anchored-heading>
+		</div>
+		<script type = "text/javascript">
+			Vue.component('anchored-heading', {
+			  render: function (createElement) {
+			    return createElement(
+			      'h' + this.level,   // 标签名称
+			      this.$slots.default // 子节点数组
+			    )
+			  },
+			  props: {
+			    level: {
+			      type: Number,
+			      required: true
+			    }
+			  }
+			})
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

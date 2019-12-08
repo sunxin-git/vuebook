@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button-counter inline-template>
+				<button v-on:click="count++">You clicked me {{ count }} times.</button>
+			</button-counter>
+		</div>
+	
+		<script>
+			Vue.component('ButtonCounter', {
+				data: function(){
+					return {
+						count: 0
+					}
+				}
+				// 没有了template选项
+  		});
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

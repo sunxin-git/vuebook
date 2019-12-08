@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+		<script src="js/loading.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+		</div>
+	
+		<script>
+			Vue.component('my-component', {
+				data: function(){
+					return {
+						message: ''
+					}
+				},
+	      template: '<p>{{message}}</p>',
+	      beforeCreate () {
+			    Loading.show();
+			  },
+			  created () {
+			  	// 准备数据，例如从服务器端获取数据，
+			  	// 当响应成功后，关闭loading，设置数据
+			  	// 此处用setTimeout模拟耗时的操作
+			  	setTimeout(()=>{
+			  		Loading.close();
+			  		this.message = "Vue.js无难事";
+			  	}, 2000);
+			  }
+    	});
+  
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

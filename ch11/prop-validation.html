@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+	
+		<script>
+			Vue.component('my-component', {
+			  props: {
+			    // 基本类型检查（'null 和 'undefined'会通过任何类型验证）
+			    age: Number,
+			    // 多个可能的类型
+			    tel: [String, Number],
+			    // 必填的字符串
+			    username: {
+			      type: String,
+			      required: true
+			    },
+			    // 带有默认值的数字
+			    sizeOfPage: {
+			      type: Number,
+			      default: 10
+			    },
+			    // 带有默认值的对象
+			    greeting: {
+			      type: Object,
+			      //  对象或数组默认值必须从一个工厂函数获取
+			      default: function () {
+			        return { message: 'hello' }
+			      }
+			    },
+			    // 自定义验证函数
+			    info: {
+			      validator: function (value) {
+			        // 这个值必须匹配下列字符串中的一个
+			        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+			      }
+			    }
+			  }
+			})
+			  		
+			new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

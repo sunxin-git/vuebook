@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+		<style>
+			.menu{
+				margin:0; 
+				padding:0; 
+				height:30px; 
+			}
+			.menu li{
+				float:left;
+				width:100px;
+				background-color:black;
+				text-align:center;
+				padding:5px;
+				list-style-type:none;
+			}
+			.menu td{
+				width:100px;
+				background-color:black;
+				text-align:center;
+				padding:5px;
+			}
+			
+			.menu li a, .menu td a{
+				color:white; 
+				text-decoration:none; 
+				font-size:12px;
+			}
+			.menu li a:hover, .menu td a:hover{
+				color:yellow;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="app">
+			<layout-menu :items="menus" kind="ul"></layout-menu>
+		</div>
+		<script>
+			let TableMenu = Vue.extend({
+				props: {
+					menus: {
+						type: Array,
+						required: true
+					}
+				},
+	      template: `
+	      	<table class="menu">
+	      		<tr>
+	      			<td v-for="menu in menus">
+	      				<a :href="menu.url">{{menu.name}}</a>
+	      			</td>
+	      		</tr>
+	      	</table>
+	      `
+  		});
+  		
+  		let UlMenu = Vue.extend({
+				props: {
+					menus: {
+						type: Array,
+						required: true
+					}
+				},
+	      template: `
+	      	<ul class="menu">
+      			<li v-for="menu in menus">
+      				<a :href="menu.url">{{menu.name}}</a>
+      			</li>
+	      	</ul>
+	      `
+  		});
+  		
+  		Vue.component('layout-menu', {
+			  functional: true,
+			  props: {
+			    items: {
+			      type: Array,
+			      required: true
+			    },
+			    kind: {
+			    	type: String,
+			    	default: 'ul'
+			    }
+			  },
+			  render: function (createElement, context) {
+			    function appropriateMenuComponent () {
+			    	// 根据kind prop的值来选择要渲染的组件
+			      if (context.props.kind === 'ul')  return UlMenu;
+			      else return TableMenu;
+			    }
+					
+			    return createElement(
+			      appropriateMenuComponent(),
+			      // 将布局组件的items prop传给子组件的menus prop
+			      // 并使用展开运算符将数据对象一起传进去
+			      {props: {'menus': context.props.items}, ...context.data},
+			      context.children
+			    )
+			  }
+			})
+			
+			new Vue({
+			  el: '#app',
+			  data: {
+			  	menus: [
+			  		{name: '新浪新闻', url: '#'},
+			  		{name: '网易游戏', url: '#'},
+			  		{name: '百度搜索', url: '#'}
+			  	]
+			  }
+			})
+		</script>
+	</body>
+</html>

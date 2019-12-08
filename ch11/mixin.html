@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script type = "text/javascript">
+			// 定义一个混入对象
+			var myMixin = {
+				created() {
+					this.startMixin()
+				},
+				methods: {
+					startMixin: function () {
+						document.write('欢迎来到混入实例')
+					}
+				}
+			};
+			// 定义一个组件，使用这个混入对象
+			var Component = Vue.extend({
+				mixins: [myMixin],
+				template: '<p>Vue.js无难事</p>',
+			})
+			
+			// 创建根实例
+			new Vue({
+			  el: '#app',
+			  components: {
+			  	MyComponent: Component
+			  }
+			})
+		</script>
+	</body>
+</html>
