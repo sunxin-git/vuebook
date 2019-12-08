@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="app">
+			<button-counter></button-counter>
+		</div>
+		<script src="vue.js"></script>
+		<script src="https://unpkg.com/vuex@3.1.1/dist/vuex.js"></script>
+		<script>
+			
+			const store = new Vuex.Store({
+			  state: {
+			    count: 0
+			  },
+			  mutations: {
+			    increment (state) {
+			    	state.count++;
+			    },
+			    incrementBy (state, n) {
+			    	state.count += n;
+			    },
+			  },
+			  actions: {
+				  /*incrementAsync ({ commit }) {
+				    setTimeout(() => {
+				      commit('increment')
+				    }, 1000)
+				  }*/
+				  increment ({ commit }) {
+				    commit('increment');
+				  },
+				  incrementBy ({ commit}, n) {
+				    commit('incrementBy', n);
+				  }
+				}
+			})
+			
+			Vue.component('ButtonCounter', {
+				computed: {
+					count(){
+						return this.$store.state.count;
+					}
+				},
+				methods: {
+				    ...Vuex.mapActions([
+				      // 将this.increment()映射为this.$store.dispatch('increment')
+				      'increment', 
+
+				      // mapActions也支持载荷：
+				      // 将this.incrementBy(amount)映射为 this.$store.dispatch('incrementBy', amount)
+				      'incrementBy' 
+				    ]),
+				    ...Vuex.mapActions({
+				      // 将this.add()映射为this.$store.dispatch('increment')
+				      add: 'increment' 
+				    })
+				  }
+				,
+	      template: `
+	      	<button @click="incrementBy(10)">
+	      		You clicked me {{ count }} times.
+	      	</button>`
+  		});
+  		
+  		new Vue({
+			  el: '#app',
+			  store,
+			})
+		</script>
+	</body>
+</html>

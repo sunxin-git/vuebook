@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="app">
+			<button-counter></button-counter>
+		</div>
+		<script src="vue.js"></script>
+		<script src="https://unpkg.com/vuex@3.1.1/dist/vuex.js"></script>
+		<script>
+			
+			const store = new Vuex.Store({
+			  state: {
+			    count: 0,
+			    message: 'Vue.js无难事'
+			  },
+			  mutations: {
+			    increment (state) {
+			      state.count++
+			    }
+			  }
+			})
+			
+			Vue.component('ButtonCounter', {
+				/*computed: Vuex.mapState({
+					count: 'count',
+					msg: 'message'
+				}),*/
+				
+				/*computed: Vuex.mapState({
+					count: function(state){
+						return state.count;
+					},
+					msg: (state) => state.message
+				}),*/
+				computed: Vuex.mapState([
+					'count',
+					'message'
+				]),
+				
+				/*data(){
+					return {
+						price: 99
+					}
+				},
+				computed: Vuex.mapState({
+					totalPrice: function(state){
+						return this.price * state.count;
+					},
+					message: 'message'
+				}),*/
+				methods: {
+					...Vuex.mapMutations([
+						'increment',
+						
+					]),
+					...Vuex.mapMutations({
+						add: 'increment'
+					})
+				},
+	
+	      template: `
+	      	<div>
+	      		<p>{{ message }}</p>
+	      		<button @click="increment">You clicked me {{ count }} times.</button>
+	      	</div>`
+	      	
+  		});
+  		
+  		new Vue({
+			  el: '#app',
+			  store,
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script src="vue.js"></script>
+		<script src="https://unpkg.com/vuex@3.1.1/dist/vuex.js"></script>
+		<script>
+			
+			const store = new Vuex.Store({
+			  state: {
+			    books: [
+			    	{id:1, title: 'Vue.js无难事', isSold: false},
+			    	{id:2, title: 'VC++深入详解', isSold: true},
+			    	{id:3, title: 'Servlet/JSP深入详解', isSold: true}
+			    ]
+			  },
+			  getters: {
+			  	sellingBooks: state => state.books.filter(book => book.isSold === true),
+			  	sellingBooksCount: (state, getters) => {
+				    return getters.sellingBooks.length
+				  },
+				  
+				  /*getBookById: function(state){
+				  	return function(id){
+				  		return state.books.find(book => book.id === id);
+				  	}
+				  }*/
+				  
+				  getBookById: state => id => state.books.find(book => book.id === id)
+			  }
+			})
+			
+			Vue.component('MyComponent', {
+				/*computed: {
+					sellingBooks(){
+						return this.$store.state.books.filter(book => book.isSold === true);
+					}
+				},*/
+				/*computed: {
+					sellingBooks(){
+						return this.$store.getters.sellingBooks;
+					},
+					sellingBooksCount(){
+						return this.$store.getters.sellingBooksCount;
+					}
+				},*/
+				computed: {
+			    // 使用对象展开运算符将getter 混入 computed 对象中
+			    // 传递数组作为参数
+			    ...Vuex.mapGetters([
+			      'sellingBooks',
+			      'sellingBooksCount',
+			      // ...
+			    ]),
+			    
+			    // 传递对象作为参数
+			    ...Vuex.mapGetters({
+			      // 把 this.bookCount 映射为 this.$store.getters.sellingBooksCount
+			      bookCount: 'sellingBooksCount'
+					})
+				},
+
+	      template: `
+	      	<div>
+	      		<ul>
+	      			<!--
+	      			<li v-for="book in this.$store.getters.sellingBooks" :key="book.id">
+	      			-->
+	      			<li v-for="book in sellingBooks" :key="book.id">
+	      				{{book.title}}
+	      			</li>
+	      		</ul>
+	      		<p>总数：{{bookCount}}</p>
+	      		<p>ID为2图书是：{{$store.getters.getBookById(2)}}</p>
+	      	</div>`
+	      	
+  		});
+  		
+  		new Vue({
+			  el: '#app',
+			  store,
+			})
+		</script>
+	</body>
+</html>

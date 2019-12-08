@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="app">
+			<button-counter></button-counter>
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			var store = {
+			  debug: true,
+			  state: {
+			    count: 0
+			  },
+			  setCountAction (newValue) {
+			    if (this.debug) 
+			    	console.log('CountAction triggered with ', newValue)
+			    this.state.count = newValue
+			  }
+			}
+			var a = 2;
+			Vue.prototype.$store = store;
+			Vue.component('ButtonCounter', {
+				computed: {
+					count(){
+						//return this.$store.state.count;
+						return a;
+					}
+				},
+				methods: {
+					handleClick(){
+						this.$store.setCountAction(this.count + 1);
+					}
+				},
+	      template: '<button v-on:click="handleClick">You clicked me {{ count }} times.</button>'
+  		});
+  		new Vue({
+			  el: '#app'
+			})
+		</script>
+	</body>
+</html>

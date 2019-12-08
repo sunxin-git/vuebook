@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-omponent>
+		</div>
+		<script src="vue.js"></script>
+		<script src="https://unpkg.com/vuex@3.1.1"></script>
+		<script>
+			const store = new Vuex.Store({
+			  state: {
+			    message: 'Vue.js无难事'
+			  },
+			  mutations: {
+			    updateMessage (state, msg) {
+			      state.message = msg;
+			    }
+			  }
+			})
+			Vue.component('MyComponent', {
+				computed: {
+					message: {
+						get () {
+				      return this.$store.state.message;
+				    },
+				    set (value) {
+				      this.$store.commit('updateMessage', value);
+				    }
+					}
+				},
+				/*
+				methods: {
+					updateMessage(e){
+						this.$store.commit('updateMessage', e.target.value)
+					}
+				},*/
+	      template: `
+	      	<div>
+	      		<!--
+	      		<input type="text" :value="message" @input="updateMessage">
+	      		-->
+	      		<input type="text" v-model="message">
+	      		<p>{{message}}</p>
+	      	</div>`
+  		});
+  		
+  		new Vue({
+			  el: '#app',
+			  store,
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="app">
+			<book></book>
+		</div>
+		<script src="vue.js"></script>
+		<script src="https://unpkg.com/vuex@3.1.1"></script>
+		<script>
+			const store = new Vuex.Store({
+			  state: {
+			    book: {
+			      title: 'VC++深入详解', 
+			      price: 168,
+			      quantity: 1
+			    },
+			    totalPrice: 0
+			  },
+			  mutations: {
+			    // 增加图书数量
+			    incrementQuantity (state, quantity) {
+			      state.book.quantity += quantity;
+			    },
+			    // 计算图书总价
+			    calculateTotalPrice(state){
+			      state.totalPrice = state.book.price * state.book.quantity;
+			    }
+			  },
+			  actions: {
+			    incrementQuantity({commit}, n){
+			      // 返回一个Promise
+			      return new Promise((resolve, reject) => {
+			        // 模拟异步操作
+              setTimeout(() => {
+                // 提交mutiation
+                commit('incrementQuantity', n)
+                resolve()
+              }, 1000)
+            })
+			    },
+			    updateBook({ dispatch, commit }, n){
+			      // 调用dispatch()方法触发incrementQuantity action，
+			      // incrementQuantity action返回一个Promise，
+			      // dispatch对其进行处理，仍旧返回Promise，
+			      // 因此可以继续调用then()方法
+			      return dispatch('incrementQuantity', n).then(() => {
+			        // 提交mutation
+			        commit('calculateTotalPrice');
+			      })
+			      
+			    }
+			  }
+			})
+			
+			Vue.component('book', {
+				data(){
+					return {
+					  quantity: 1
+					}
+				},
+				computed: {
+          ...Vuex.mapState([
+            'book',
+            'totalPrice'
+          ])
+        },
+				methods: {
+					...Vuex.mapActions([
+						'updateBook',
+					]),
+					addQuantity(){
+					  this.updateBook(this.quantity)
+					}
+				},
+	      template: `
+	        <div>
+	          <p>书名：{{ book.title }}</p>
+	          <p>价格：{{ book.price }}</p>
+	          <p>数量：{{ book.quantity }}</p>
+	          <p>总价：{{ totalPrice }}</p>
+	          <p>
+	            <input type="text" v-model.number="quantity">
+	            <button @click="addQuantity">增加数量</button>
+	          </p>
+	        </div>`
+  		});
+  		
+  		new Vue({
+			  el: '#app',
+			  store,
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div id="app">
+			<my-component></my-component>
+		</div>
+		<script src="vue.js"></script>
+		<script src="https://unpkg.com/vuex@3.1.1"></script>
+		<script>
+		  const ModuleA = {
+		    namespaced: true,
+        state: { 
+          message : 'Hello Vue.js'
+        },
+        mutations: {
+          updateMessage(state, newMsg){
+            state.message = newMsg;
+          }
+        },
+        actions: {
+          changeMessage({commit}, newMsg){
+            commit('updateMessage', newMsg);
+          }
+        },
+        getters: {
+          reversedMessage(state){
+            return state.message.split('').reverse().join('');
+          }
+        }
+		  }
+		  
+		  const ModuleB = {
+		    namespaced: true,
+		    state: { 
+          count : 0
+        },
+        mutations: {
+          increment(state){
+            state.count++;
+          }
+        }
+		  }
+			const store = new Vuex.Store({
+			  modules: {
+			    msg: ModuleA,
+			    another: ModuleB
+			  }
+			})
+			
+			Vue.component('MyComponent', {
+			  data(){
+			    return {
+			      message: ''
+			    }
+			  },
+				computed: {
+          ...Vuex.mapState({
+            msg(){
+              return this.$store.state['msg'].message;
+            }
+          }),
+          // 将模块的名字作为第一个参数传递给mapState
+          ...Vuex.mapState('another', [
+            // 将this.count映射为 store.state['another'].count
+            'count',
+          ]),
+          reversedMessage(){
+            return this.$store.getters['msg/reversedMessage'];
+          }
+        },
+				methods: {
+				  // 将模块的名字作为第一个参数传递给mapMutations
+					...Vuex.mapMutations('msg', [
+					  // 将this.updateMessage()映射为this.$store.commit('msg/increment')
+						'updateMessage',
+					]),
+					add(){
+					  this.$store.commit('another/increment')
+					},
+					changeMessage(){
+					  this.$store.dispatch('msg/changeMessage', this.message)
+					},
+					// 等价于
+					/*...Vuex.mapActions('msg', [
+					  // 将this.changeMessage(message)映射为this.$store.dispatch('msg/changeMessage', message)
+						'changeMessage',
+					]),*/
+					
+				},
+	      template: `
+	        <div>
+	          <p>
+	            <span>消息：{{ msg }}</span>
+	            <span>反转的消息：{{ reversedMessage }}</span>
+	          </p>
+	          <p>
+	            <input type="text" v-model="message">
+	            <button @click="changeMessage()">修改内容</button>
+	          </p>
+	          <p>
+	            <span>计数：{{ count }}</span>
+	            <button @click="add">增加计数</button>
+	          </p>
+	        </div>`
+  		});
+  		
+  		var vm = new Vue({
+			  el: '#app',
+			  store,
+			})
+		</script>
+	</body>
+</html>
