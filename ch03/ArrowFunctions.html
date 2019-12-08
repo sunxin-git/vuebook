@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			/*var greeting = "Welcome";
+			function sayHello(user){
+				alert(this.greeting + ", " + user);
+			}
+			
+			var obj = {
+				greeting: "Hello",
+				sayHello: sayHello
+			}
+			sayHello("zhangsan");      //Welcome, zhangsan
+			obj.sayHello("lisi");      //Hello, lisi
+			var sayHi = obj.sayHello;
+			sayHi("wangwu");           //Welcome, wangwu
+			*/
+			
+			/*var obj = {
+				greeting: "Hello",
+				sayHello: function(){
+					setTimeout(function(){
+						alert(this.greeting);
+					}, 2000);
+				}
+			}
+			obj.sayHello();  // undefined
+			*/
+			
+			/*var greeting = "Welcome";
+			
+			function sayHello(user){
+				alert(this.greeting + ", " + user);
+			}
+			
+			var obj = {
+				greeting: "Hello",
+				sayHello: sayHello
+			}
+			
+			var sayHi = obj.sayHello.bind(obj);
+			sayHi("wangwu");    //Hello, wangwu
+			
+			var obj = {
+				greeting: "Hello",
+				sayHello: function(){
+					setTimeout((function(){
+						alert(this.greeting);
+					}).bind(this), 2000);
+				}
+				// Лђеп
+				//sayHello: function(){
+				//	var that = this;
+				//	setTimeout(function(){
+				//		alert(that.greeting);
+				//	}, 2000);
+				//}
+			}
+			obj.sayHello();  // Hello
+			*/
+			
+			/*var obj = {
+				greeting: "Hello",
+				sayHello: function(){
+					setTimeout(() => alert(this.greeting), 2000);
+				}
+			}
+			obj.sayHello();  // Hello
+			var sayHi = obj.sayHello;
+			sayHi();*/
+		</script>
+	</head>
+</html>

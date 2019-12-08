@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="gbk">
+		<title>Hello Vue.js</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<!--View-->
+		<div id="app">
+			<p>{{message}}</p>
+		</div>
+	
+		<script>
+			//Model
+			var exampleData = {
+				message: 'Hello Vue.js!'
+			}
+			
+			//ViewModel，它连接View与Model	
+			new Vue({
+			  el: '#app',  //选项对象的el属性指向View
+			  data: exampleData  //data属性指向Model
+			})
+		</script>
+	</body>
+</html>

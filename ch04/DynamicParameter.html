@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Hello Vue.js</title>
+	</head>
+	<body>
+		<!--View-->
+		<div id="app">
+			<a v-bind:[attributename] ="url">新浪网</a>
+			<a v-bind:['hr' + param]="url">新浪网</a>
+		</div>
+		
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+			  el: '#app',
+			  data: {
+			  	attributename: "href",
+			  	param: "ef",
+			  	url: "http://www.sina.com.cn/"
+				}
+			})
+		</script>
+	</body>
+</html>

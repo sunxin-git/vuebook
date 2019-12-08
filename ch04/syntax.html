@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Hello Vue.js</title>
+	</head>
+	<body>
+		<!--View-->
+		<div id="app">
+			<!--简单的文本插值-->
+			<p>{{message}}</p>
+			<!--使用 JavaScript 表达式-->
+			<p>{{message.toUpperCase()}}</p>
+			<!--HTML代码将以普通文本的方式输出-->
+			<p>{{spanHtml}}</p>
+			<!--输出HTML代码-->
+			<p v-html="spanHtml"></p>
+			<!--使用v-bind指令对HTML元素的属性进行绑定-->
+			<a v-bind:href="url">新浪网</a>
+		</div>
+	
+	
+		<script src="vue.js"></script>
+		<script>
+			var vm = new Vue({
+			  //el: '#app',
+			  data: {
+			  	message: "Hello Vue.js",
+			  	url: "http://www.sina.com.cn/",
+			  	spanHtml: "<span style='color: red'>HTML元素，以红色字体显示</span>",
+				}
+			})
+			vm.$mount("#app");
+		</script>
+	</body>
+</html>
