@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js"></script>
+		<script src="vue-router.js"></script>
+	</head>
+	<body>
+		
+		<div id="app">
+			<p>
+				<!-- 使用router-link组件来导航 -->
+    		<!-- 通过传入to属性指定链接-->
+    		<!-- <router-link>默认会被渲染成一个<a>标签 -->
+				<router-link to="/news">新闻</router-link>
+				<router-link to="/books">图书</router-link>
+				<router-link to="/videos">视频</router-link>
+			</p>
+			<!-- 路由出口 -->
+  		<!-- 路由匹配到的组件将在这里渲染 -->
+			<router-view></router-view>
+		</div>
+		<script type>
+			// 定义路由组件
+			// 可以从其他文件import进来
+			const news = { template: '<div>新闻页面</div>' }
+			const books = { template: '<div>图书页面</div>' }
+			const videos = { template: '<div>视频页面</div>' }
+			
+			// 定义路由
+			// 每个路由应该映射到一个组件。 
+			// 组件可以是通过Vue.extend()创建的组件构造器，
+			// 或者只是一个组件选项对象。
+			const routes = [
+			  { path: '/news', component: news },
+			  { path: '/books', component: books },
+			  { path: '/videos', component: videos }
+			]
+			
+			// 传递routes选项，创建 router 实例。
+			const router = new VueRouter({
+  			routes // (缩写) 相当于 routes: routes
+			})
+
+			// 创建和挂载根实例。
+			// 使用router选项注入路由，从而让整个应用都有路由功能
+			new Vue({
+			  el: '#app',
+			  router: router
+			})
+		</script>
+	</body>
+</html>
